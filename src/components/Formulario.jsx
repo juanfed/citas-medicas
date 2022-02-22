@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/formulario.css';
+import {nanoid} from 'nanoid'
 const Formulario = () => {
 
     //creacion de las citas
@@ -42,6 +43,8 @@ const Formulario = () => {
         } 
 
         // asignar un ID
+
+        citas.id = nanoid()
 
         // crear la cita
 
