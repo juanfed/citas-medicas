@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import '../styles/formulario.css';
-import {nanoid} from 'nanoid'
-const Formulario = () => {
+import { nanoid } from 'nanoid'
+const Formulario = ({ crearCita }) => {
 
-    //creacion de las citas
-    const [citas, setcitas] = useState({
+    //creacion de las cita
+    const [cita, setCita] = useState({
         nombre: '',
         apellido: '',
         fecha: '',
@@ -17,15 +17,15 @@ const Formulario = () => {
 
     // funcion que se ejecuta cuando el usuario escribe en los inputs
     const actualizar = (e) => {  // le paso un evento, sirve para guardar la informacion, si usamos e.target.nameme indicara el nombre del campo en el que escribo
-        setcitas({
-            ...citas, // hago copia de la cita y le añado el valor que estoy escribiendo en el input cada vez que se hace se interactua
+        setCita({
+            ...cita, // hago copia de la cita y le añado el valor que estoy escribiendo en el input cada vez que se hace se interactua
             [e.target.name]: e.target.value
         })
     }
 
     // estraigo los valores
 
-    const { nombre, apellido, fecha, numero, sintomas } = citas; // destrucuuring para evitar el cita.nombre, cita.apellido, etc
+    const { nombre, apellido, fecha, numero, sintomas } = cita; // destrucuuring para evitar el cita.nombre, cita.apellido, etc
 
     // para cuando se pulsa en enviar
 
@@ -37,27 +37,34 @@ const Formulario = () => {
 
         // validar
 
-        if(nombre.trim() === '' || apellido.trim() === '' || fecha.trim() === '' ||  numero.trim() === '' || sintomas.trim() === ''){  // el .trim() elimina los espacion anted y despues del string
+        if (nombre.trim() === '' || apellido.trim() === '' || fecha.trim() === '' || numero.trim() === '' || sintomas.trim() === '') {  // el .trim() elimina los espacion anted y despues del string
             sertError(true)
             return; // para que no ejecute nada mas adelante
-        } 
+        }
 
         // asignar un ID
 
-        citas.id = nanoid()
+        cita.id = nanoid()
 
         // crear la cita
 
-        // reiniciar el form
+        crearCita(cita)
 
-        console.log("enviando el formulario")
+        // reiniciar el form
+        setCita({
+            nombre: '',
+            apellido: '',
+            fecha: '',
+            numero: '',
+            sintomas: ''
+        })
     }
 
     return (
         <div>
             <h2>Formulario cita medica</h2>
 
-            { error ? <p>Hay un error datos por favor reviselos</p> : null}
+            {error ? <p>Hay un error datos por favor reviselos</p> : null}
             <form className='formulario' onSubmit={enviarCita}>
                 <label htmlFor="name">Nombre </label>
                 <input type="text"
@@ -104,6 +111,7 @@ const Formulario = () => {
                 <button>Agregrar cita</button>
             </form>
 
+            
         </div>
     )
 }
