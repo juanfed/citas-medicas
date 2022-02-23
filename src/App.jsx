@@ -8,13 +8,17 @@ function App() {
 
   const [citas, setCitas] = useState([]);
 
-
   // funcion que toma las citas y me le agrega la nueva
-
   const crearCita = (cita) => {
     setCitas([
       ...citas, cita
     ])
+  }
+
+  // funcion para eleiminar las citas ya creadas
+  const eliminarCita= (id) =>{
+    const nuevasCitas = citas.filter(cita => cita.id !== id );
+    setCitas(nuevasCitas);
   }
 
 
@@ -31,6 +35,7 @@ function App() {
             <Cita
             key={cita.id}
             cita={cita}
+            eliminarCita={eliminarCita}
             />
           )
         })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../styles/formulario.css';
 import { nanoid } from 'nanoid'
 const Formulario = ({ crearCita }) => {
@@ -22,6 +22,11 @@ const Formulario = ({ crearCita }) => {
             [e.target.name]: e.target.value
         })
     }
+
+    // useEfeft para realizar operaciones cuando el state cambia
+    useEffect (() =>{
+        console.log("me cargo por primera vez") //cada vez que tengamos nuevas citas, se ejecutara el useEffet
+    }, [cita]);
 
     // estraigo los valores
 
